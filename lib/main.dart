@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:gtex_demo/controller.dart';
 
 void main() {
-  runApp(GetMaterialApp(home: Home()));
+  runApp(const GetMaterialApp(home: Home()));
 }
 
 class Home extends StatelessWidget {
@@ -14,12 +14,29 @@ class Home extends StatelessWidget {
     final controller = Get.put(Controller());
     return Scaffold(
       appBar: AppBar(
-        title: Text("GetX Demo"),
+        title: const Text("GetX Demo"),
         centerTitle: true,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          ElevatedButton(
+            onPressed: () {
+              Get.defaultDialog(
+                  title: "標題",
+                  titleStyle: const TextStyle(color: Colors.red),
+                  content: Column(
+                    children: const [
+                      Text("這個是模式的數據"),
+                      Text("這個是模式的數據"),
+                      Text("這個是模式的數據"),
+                      Text("這個是模式的數據"),
+                      Text("這個是模式的數據"),
+                    ],
+                  ));
+            },
+            child: const Text("Dialog"),
+          ),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.black54, // background
@@ -29,24 +46,25 @@ class Home extends StatelessWidget {
                 Get.snackbar(
                   "標題", "網路錯誤!",
                   colorText: Colors.white, backgroundColor: Colors.black54,
-                  duration: Duration(milliseconds: 1500), //開始到結束的時間
+                  duration: const Duration(milliseconds: 1500), //開始到結束的時間
                   snackPosition: SnackPosition.TOP,
-                  titleText: Text(
+                  titleText: const Text(
                     "這個是新標題",
                     style: TextStyle(color: Colors.red),
                   ),
                   messageText: Column(
-                    children: [
+                    children: const [
                       Icon(Icons.add, color: Colors.white),
                       Icon(Icons.remove, color: Colors.white),
                       Icon(Icons.list, color: Colors.white),
                     ],
                   ),
-                  icon: Icon(Icons.usb_rounded, color: Colors.white, size: 35),
+                  icon: const Icon(Icons.usb_rounded,
+                      color: Colors.white, size: 35),
                   borderWidth: 2.0, borderColor: Colors.red,
                 );
               },
-              child: Text("snackbar")),
+              child: const Text("snackbar")),
           GestureDetector(
             onTap: () {
               Get.to(Other());
@@ -59,14 +77,15 @@ class Home extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   child: Obx(() => Text(
                         controller.count.toString(),
-                        style: TextStyle(fontSize: 50, color: Colors.white),
+                        style:
+                            const TextStyle(fontSize: 50, color: Colors.white),
                       )),
                 )),
           )
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           controller.increment();
         },
@@ -88,7 +107,7 @@ class Other extends StatelessWidget {
             onTap: () {
               Get.back();
             },
-            child: Icon(Icons.arrow_back),
+            child: const Icon(Icons.arrow_back),
           ),
         ),
         body: Center(child: Text("${c.count}")));
