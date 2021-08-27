@@ -20,6 +20,33 @@ class Home extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.black54, // background
+                onPrimary: Colors.white, // foreground
+              ),
+              onPressed: () {
+                Get.snackbar(
+                  "標題", "網路錯誤!",
+                  colorText: Colors.white, backgroundColor: Colors.black54,
+                  duration: Duration(milliseconds: 1500), //開始到結束的時間
+                  snackPosition: SnackPosition.TOP,
+                  titleText: Text(
+                    "這個是新標題",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  messageText: Column(
+                    children: [
+                      Icon(Icons.add, color: Colors.white),
+                      Icon(Icons.remove, color: Colors.white),
+                      Icon(Icons.list, color: Colors.white),
+                    ],
+                  ),
+                  icon: Icon(Icons.usb_rounded, color: Colors.white, size: 35),
+                  borderWidth: 2.0, borderColor: Colors.red,
+                );
+              },
+              child: Text("snackbar")),
           GestureDetector(
             onTap: () {
               Get.to(Other());
