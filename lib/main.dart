@@ -23,17 +23,48 @@ class Home extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               Get.defaultDialog(
-                  title: "標題",
-                  titleStyle: const TextStyle(color: Colors.red),
-                  content: Column(
-                    children: const [
-                      Text("這個是模式的數據"),
-                      Text("這個是模式的數據"),
-                      Text("這個是模式的數據"),
-                      Text("這個是模式的數據"),
-                      Text("這個是模式的數據"),
-                    ],
-                  ));
+                title: "標題",
+                titleStyle: const TextStyle(color: Colors.red),
+                content: Column(
+                  children: const [
+                    Text("這個是模式的數據"),
+                    Text("這個是模式的數據"),
+                    Text("這個是模式的數據"),
+                    Text("這個是模式的數據"),
+                    Text("這個是模式的數據"),
+                  ],
+                ),
+                // textCancel: "取消",
+                // cancelTextColor: Colors.greenAccent,
+                // textConfirm: "確認",
+                // confirmTextColor: Colors.white,
+                // buttonColor: Colors.greenAccent,
+                // onCancel: (){
+                //   Get.back();
+                // }
+                cancel: ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Text("取消"),
+                ),
+                confirm: ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                    Get.snackbar("提示", "消息已確認");
+                  },
+                  child: Text(
+                    "確認",
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green, // background
+                    onPrimary: Colors.white, // foreground
+                  ),
+                ),
+                // backgroundColor: Colors.grey,
+                barrierDismissible: false,//點擊畫面就會關閉Dialog
+
+              );
             },
             child: const Text("Dialog"),
           ),
