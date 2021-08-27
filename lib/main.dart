@@ -19,16 +19,22 @@ class Home extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height:200,
-            width:200,
-            color: Colors.red,
-            
-          )
+              height: 200,
+              width: 200,
+              color: Colors.red,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  "1111",
+                  style: TextStyle(fontSize: 50, color: Colors.white),
+                ),
+              ))
         ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: (){},),
+        onPressed: () {},
+      ),
     );
   }
 }
