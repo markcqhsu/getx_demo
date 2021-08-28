@@ -22,6 +22,59 @@ class Home extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () {
+              Get.bottomSheet(
+                Container(
+                  height: 180,
+                  color: Colors.white,
+                  child: ListView(
+                    children: const [
+                      ListTile(
+                        leading: Icon(
+                          Icons.account_box,
+                          size: 35,
+                          color: Colors.red,
+                        ),
+                        trailing: Icon(
+                          Icons.keyboard_arrow_right,
+                          color: Colors.black,
+                        ),
+                        title: Text("重啟"),
+                      ),
+                      ListTile(
+                        leading: Icon(
+                          Icons.shopping_cart,
+                          size: 35,
+                          color: Colors.red,
+                        ),
+                        trailing: Icon(
+                          Icons.keyboard_arrow_right,
+                          color: Colors.black,
+                        ),
+                        title: Text("取消"),
+                      ),
+                      ListTile(
+                        leading: Icon(
+                          Icons.list_alt,
+                          size: 35,
+                          color: Colors.red,
+                        ),
+                        trailing: Icon(
+                          Icons.keyboard_arrow_right,
+                          color: Colors.black,
+                        ),
+                        title: Text("關機"),
+                      ),
+                    ],
+                  ),
+                ),
+                // enableDrag: false,
+                // isDismissible: false, //是否可以關掉畫面
+              );
+            },
+            child: const Text("bottomsheet"),
+          ),
+          ElevatedButton(
+            onPressed: () {
               Get.defaultDialog(
                 title: "標題",
                 titleStyle: const TextStyle(color: Colors.red),
@@ -62,8 +115,7 @@ class Home extends StatelessWidget {
                   ),
                 ),
                 // backgroundColor: Colors.grey,
-                barrierDismissible: false,//點擊畫面就會關閉Dialog
-
+                barrierDismissible: false, //點擊畫面就會關閉Dialog
               );
             },
             child: const Text("Dialog"),
