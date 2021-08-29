@@ -3,11 +3,17 @@ import 'package:get/get.dart';
 import 'package:gtex_demo/controller.dart';
 
 void main() {
-  runApp( GetMaterialApp(
+  runApp(GetMaterialApp(
+    initialRoute: "/",
     getPages: [
-      GetPage(name: "/", page: ()=> const Home()),
-      GetPage(name: "/other", page: ()=>  Other()),
+      GetPage(name: "/", page: () => const Home()),
+      GetPage(
+        name: "/other",
+        page: () => Other(),
+      ),
+      GetPage(name: "/login", page: () => const Login()),
     ],
+    routingCallback: (routing) => {print(routing!.current)},//* 可以用來判斷用戶的狀態
   ));
 }
 
@@ -26,6 +32,11 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            ElevatedButton(
+                onPressed: () {
+                  Get.toNamed("/login");
+                },
+                child: Text("Login Page")),
             ElevatedButton(
               onPressed: () {
                 Get.bottomSheet(
@@ -156,11 +167,10 @@ class Home extends StatelessWidget {
                 child: const Text("snackbar")),
             GestureDetector(
               onTap: () {
-                Get.to(
-                  () => Other(),
-                  transition: Transition.native, //* native 根據設備做變化
-                  arguments: {"name":"jas", "age":"20"}
-                ); 
+                Get.toNamed("/other",
+                    // () => Other(),
+                    // transition: Transition.native, //* native 根據設備做變化
+                    arguments: {"name": "1111", "age": "20"});
               },
               child: Container(
                   height: 200,
@@ -205,6 +215,21 @@ class Other extends StatelessWidget {
             child: const Icon(Icons.arrow_back),
           ),
         ),
-        body: Center(child: Text("${c.count}"+ Get.arguments["name"])));
+        body: Center(child: Text("${c.count}" + Get.arguments["name"])));
+  }
+}
+
+class Login extends StatelessWidget {
+  const Login({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Container(
+          child: Text("這個是登入介面"),
+        ),
+      ),
+    );
   }
 }
