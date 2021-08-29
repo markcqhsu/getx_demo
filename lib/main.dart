@@ -13,7 +13,7 @@ void main() {
       ),
       GetPage(name: "/login", page: () => const Login()),
     ],
-    routingCallback: (routing) => {print(routing!.current)},//* 可以用來判斷用戶的狀態
+    routingCallback: (routing) => {print(routing!.current)}, //* 可以用來判斷用戶的狀態
   ));
 }
 
@@ -22,7 +22,11 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("build...");
     final controller = Get.put(Controller());
+    final user = User(name: "jas", age: 20).obs;
+
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("GetX Demo"),
@@ -32,11 +36,50 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            GetX<Controller>(
+              builder: (controller) {
+                print("count 1  rebuild");
+                return Text("${controller.count1.value}");
+              },
+            ),
             ElevatedButton(
-                onPressed: () {
-                  Get.toNamed("/login");
-                },
-                child: Text("Login Page")),
+              onPressed: () {
+                controller.count1.value++;
+              },
+              child: Text("count1"),
+            ),
+
+            Obx(()=>Text("name is ${user.value.name}"),),
+            ElevatedButton(
+              onPressed: () {
+                controller.count2.value++;
+              },
+              child: Text("count2"),
+            ),
+
+            Obx(
+              ()=> Text("name is ${user.value.name}"),
+            ),
+            Obx(
+              ()=> Text("age is ${user.value.age}"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                user.update((user)=>{
+                  user!.name="miles",
+                  user.age = 20,
+                });
+              },
+              child: Text("Update User"),
+            ),
+
+
+            ElevatedButton(
+              onPressed: () {
+                Get.toNamed("/login");
+              },
+              child: Text("Login Page"),
+            ),
             ElevatedButton(
               onPressed: () {
                 Get.bottomSheet(
@@ -165,33 +208,33 @@ class Home extends StatelessWidget {
                   );
                 },
                 child: const Text("snackbar")),
-            GestureDetector(
-              onTap: () {
-                Get.toNamed("/other",
-                    // () => Other(),
-                    // transition: Transition.native, //* native 根據設備做變化
-                    arguments: {"name": "1111", "age": "20"});
-              },
-              child: Container(
-                  height: 200,
-                  width: 200,
-                  color: Colors.red,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Obx(() => Text(
-                          controller.count.toString(),
-                          style: const TextStyle(
-                              fontSize: 50, color: Colors.white),
-                        )),
-                  )),
-            )
+            // GestureDetector(
+            //   onTap: () {
+            //     Get.toNamed("/other",
+            //         // () => Other(),
+            //         // transition: Transition.native, //* native 根據設備做變化
+            //         arguments: {"name": "1111", "age": "20"});
+            //   },
+            //   child: Container(
+            //       height: 200,
+            //       width: 200,
+            //       color: Colors.red,
+            //       child: Align(
+            //         alignment: Alignment.bottomCenter,
+            //         child: Obx(() => Text(
+            //               controller.count.toString(),
+            //               style: const TextStyle(
+            //                   fontSize: 50, color: Colors.white),
+            //             )),
+            //       ),),
+            // )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          controller.increment();
+          // controller.increment();
         },
       ),
     );
@@ -207,15 +250,16 @@ class Other extends StatelessWidget {
     final result = Get.arguments;
     // 访问更新后的计数变量
     return Scaffold(
-        appBar: AppBar(
-          leading: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: const Icon(Icons.arrow_back),
-          ),
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: const Icon(Icons.arrow_back),
         ),
-        body: Center(child: Text("${c.count}" + Get.arguments["name"])));
+      ),
+      // body: Center(child: Text("${c.count}" + Get.arguments["name"])),
+    );
   }
 }
 
@@ -232,4 +276,10 @@ class Login extends StatelessWidget {
       ),
     );
   }
+}
+
+class User{
+  User({required this.name, required this.age});
+  String name;
+  int age;
 }
